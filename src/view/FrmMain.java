@@ -30,6 +30,7 @@ public class FrmMain extends JFrame {
 	private JButton btnDelete;
 	private JButton btnDetails;
 	private JTable tblCustomers;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -53,19 +54,18 @@ public class FrmMain extends JFrame {
 		
 		btnDetails = new JButton("Detalji");
 		
-		tblCustomers = new JTable();
-		tblCustomers.setColumnSelectionAllowed(true);
+		scrollPane = new JScrollPane();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(26)
-					.addComponent(tblCustomers, GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
-					.addGap(41)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnAddNewCustomer, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnDetails, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnDelete, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+					.addGap(17)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnAddNewCustomer, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnDetails, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -73,20 +73,20 @@ public class FrmMain extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(27)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(tblCustomers, GroupLayout.PREFERRED_SIZE, 366, GroupLayout.PREFERRED_SIZE)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 344, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(btnAddNewCustomer, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(btnDetails, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(153, Short.MAX_VALUE))
+					.addContainerGap(30, Short.MAX_VALUE))
 		);
-		contentPane.setLayout(gl_contentPane);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(24, 378, 455, -179);
-		contentPane.add(scrollPane);
+		tblCustomers = new JTable();
+		scrollPane.setViewportView(tblCustomers);
+		tblCustomers.setColumnSelectionAllowed(true);
+		contentPane.setLayout(gl_contentPane);
 		prepareView();
 		
 	}
