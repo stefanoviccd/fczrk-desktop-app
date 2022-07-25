@@ -20,7 +20,7 @@ public class DBConnection {
 
         if (connection == null || connection.isClosed()) {
             try {
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/fczrkdb", "root", "root");
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/fczrk_db", "root", "root");
             } catch (SQLException e) {
                 throw e;
             }
@@ -29,19 +29,19 @@ public class DBConnection {
     }
     
     public void connect() throws SQLException {
-        DBConnection.getInstance().getConnection();
+        getConnection();
     }
     
     public void disconnect() throws SQLException {
-    	DBConnection.getInstance().getConnection().close();
+    	getConnection().close();
     }
     
     public void commit() throws SQLException {
-    	DBConnection.getInstance().getConnection().commit();
+    	getConnection().commit();
     }
     
     public void rollback() throws SQLException {
-    	DBConnection.getInstance().getConnection().rollback();
+    	getConnection().rollback();
     }
     
 }

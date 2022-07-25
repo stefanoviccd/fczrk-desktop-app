@@ -49,6 +49,11 @@ public class FrmMain extends JFrame {
 		setContentPane(contentPane);
 		
 		btnAddNewCustomer = new JButton("Dodaj novog korisnika");
+		btnAddNewCustomer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UIController.openDlgAddNewCustomer();
+			}
+		});
 		
 		btnDelete = new JButton("Izbri\u0161i");
 		
