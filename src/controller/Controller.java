@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,10 @@ public class Controller {
 	}
 	public List<Customer> getAllCustomers() {
 		return customerService.getAllCustomers();
+	}
+	public void addNewCustomer(Customer customer) throws SQLException {
+		customerService.addNewCustomer(customer);
+		
 	}
 
 }
