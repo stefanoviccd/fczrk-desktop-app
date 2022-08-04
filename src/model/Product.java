@@ -1,12 +1,18 @@
 package model;
 
 public class Product {
-
+	private Long productId;
 	private Long code;
 	private Double price;
 	private String name;
 	private UnitType unit;
 	
+	public Long getProductId() {
+		return productId;
+	}
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
 	public Long getCode() {
 		return code;
 	}
