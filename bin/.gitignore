@@ -1,4 +1,6 @@
+/configuration.properties
 /controller/
+/db/
 /main/
 /model/
 /repository/
