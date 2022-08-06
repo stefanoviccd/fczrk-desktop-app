@@ -12,8 +12,8 @@ public class TableModelCustomer extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	List<Customer> customers;
-	String[] columnNames= {"Ime", "Prezime", "Kontakt", "Ukupni pazar", "Tip korisnika"};
-	Class[] columnClasses= {String.class, String.class, String.class, double.class, CustomerType.class};
+	String[] columnNames= {"Ime i prezime", "Kontakt", "Ukupni pazar", "Tip korisnika"};
+	Class[] columnClasses= {String.class, String.class, double.class, CustomerType.class};
 	
 	public TableModelCustomer(List<Customer> customers) {
 		this.customers=customers;
@@ -35,15 +35,12 @@ public class TableModelCustomer extends AbstractTableModel {
 		Customer customer=customers.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			return (String) customer.getName();
-			
+			return (String) customer.getFullName();
 		case 1:
-			return (String) customer.getSurname();
-		case 2:
 			return (String) customer.getContact();
-		case 3:
+		case 2:
 			return (double) customer.getTotalBill();
-		case 4:
+		case 3:
 			return (CustomerType) customer.getCustomerType();
 		default:  return "n/a";
 

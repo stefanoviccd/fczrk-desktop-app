@@ -1,22 +1,22 @@
 package model;
 
 public class Customer {
-	private String name;
-	private String surname;
+	private Long customerId;
+	private String fullName;
 	private String contact;
 	private double totalBill;
 	private CustomerType customerType;
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-	public String getSurname() {
-		return surname;
+	public Long getCustomerId() {
+		return customerId;
 	}
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 	public String getContact() {
 		return contact;
