@@ -1,6 +1,7 @@
 package model;
 
 public class Customer {
+	private Long customerId;
 	private String fullName;
 	private String contact;
 	private double totalBill;
@@ -10,6 +11,12 @@ public class Customer {
 	}
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+	public Long getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 	public String getContact() {
 		return contact;

@@ -1,8 +1,12 @@
 package db;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DBConnection {
 
@@ -20,10 +24,22 @@ public class DBConnection {
 
         if (connection == null || connection.isClosed()) {
             try {
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/fczrk_db", "root", "root");
+            	  Properties properties = new Properties();
+                  properties.load(new FileInputStream("configuration.properties"));
+                  String url = properties.getProperty("url");
+                  String user = properties.getProperty("username");
+                  String password = properties.getProperty("password");
+                connection = DriverManager.getConnection(url, user, password);
+                connection.setAutoCommit(false);
             } catch (SQLException e) {
                 throw e;
-            }
+            } catch (FileNotFoundException e) {
+				e.printStackTrace();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         return connection;
     }

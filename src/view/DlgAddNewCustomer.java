@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.mysql.cj.protocol.x.MessageConstants;
+
 import controller.UIController;
 
 import javax.swing.JLabel;
@@ -19,8 +21,11 @@ import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import model.CustomerType;
+import model.CustomerTypeName;
+
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class DlgAddNewCustomer extends JDialog {
@@ -30,6 +35,7 @@ public class DlgAddNewCustomer extends JDialog {
 	private JTextField txtSurname;
 	private JTextField txtContact;
 	private JTextField txtTotalBill;
+	private UIController uiController;
 
 	/**
 	 * Launch the application.
@@ -38,7 +44,7 @@ public class DlgAddNewCustomer extends JDialog {
 		try {
 			DlgAddNewCustomer dialog = new DlgAddNewCustomer();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
+		dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,6 +54,7 @@ public class DlgAddNewCustomer extends JDialog {
 	 * Create the dialog.
 	 */
 	public DlgAddNewCustomer() {
+		uiController=new UIController();
 		setAlwaysOnTop(true);
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -104,7 +111,8 @@ public class DlgAddNewCustomer extends JDialog {
 		contentPanel.add(lblNewLabel_2);
 		
 		JComboBox comboBoxCustomerType = new JComboBox(); 
-		comboBoxCustomerType.setModel(new DefaultComboBoxModel(CustomerType.values()));
+		List<CustomerType> customerTypes= uiController.getCustomerTypes();
+		comboBoxCustomerType.setModel(new DefaultComboBoxModel<CustomerType>());
 		comboBoxCustomerType.setBounds(132, 177, 173, 21);
 		contentPanel.add(comboBoxCustomerType);
 		{
@@ -115,19 +123,18 @@ public class DlgAddNewCustomer extends JDialog {
 				JButton okButton = new JButton("Dodaj novog korisnika");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						String name = txtName.getText().trim();
-						String surname = txtSurname.getText().trim();
-						String contact = txtContact.getText().trim();
-						double totalBill = Double.parseDouble(txtTotalBill.getText());
-						CustomerType customerType = (CustomerType) comboBoxCustomerType.getSelectedItem();
-						
-						
-					
-						UIController.addNewCustomer(name,surname,contact, totalBill, customerType);
-						
-				
-						
-						dispose();
+						try {
+							String name = txtName.getText().trim();
+							String contact = txtContact.getText().trim();
+							double totalBill = Double.parseDouble(txtTotalBill.getText());
+							CustomerTypeName customerType = (CustomerTypeName) comboBoxCustomerType.getSelectedItem();
+							uiController.addNewCustomer(name,contact, totalBill, customerType);
+							JOptionPane.showMessageDialog(getRootPane(), "Uspešno evidentiran majstor.", "", JOptionPane.DEFAULT_OPTION);
+							dispose();
+						} catch (Exception ex) {
+							JOptionPane.showMessageDialog(getRootPane(), ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+								
+						}
 					}
 				});
 				okButton.setActionCommand("OK");

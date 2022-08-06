@@ -2,10 +2,10 @@ package model;
 
 public class CustomerType {
 	private Long typeId;
-	private String type;
+	private CustomerTypeName type;
 	private double threshold;
 	private double discount;
-	public String getType() {
+	public CustomerTypeName getType() {
 		return type;
 	}
 	public Long getTypeId() {
@@ -14,7 +14,7 @@ public class CustomerType {
 	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
 	}
-	public void setType(String type) {
+	public void setType(CustomerTypeName type) {
 		this.type = type;
 	}
 	public double getThreshold() {
@@ -28,6 +28,10 @@ public class CustomerType {
 	}
 	public void setDiscount(double discount) {
 		this.discount = discount;
+	}
+	@Override
+	public String toString() {
+		return type.name();
 	}
 	
 }

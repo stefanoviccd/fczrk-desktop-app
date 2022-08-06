@@ -51,7 +51,7 @@ public class FrmMain extends JFrame {
 		btnAddNewCustomer = new JButton("Dodaj novog korisnika");
 		btnAddNewCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UIController.openDlgAddNewCustomer();
+				uiController.openDlgAddNewCustomer();
 			}
 		});
 		

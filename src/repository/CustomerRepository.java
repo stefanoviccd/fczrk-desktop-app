@@ -8,9 +8,9 @@ import model.Customer;
 public interface CustomerRepository {
 	List<Customer> getAllCustomers();
 
-	void addNewCustomer(Customer customer);
+	void addNewCustomer(Customer customer) throws Exception;
 
-	List<Customer> findByContact(String contact) throws SQLException;
+	List<Customer> findByContact(String contact) throws Exception;
 
 
 }

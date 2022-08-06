@@ -2,14 +2,14 @@ package controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import model.Customer;
 import model.CustomerType;
+import model.CustomerTypeName;
 import view.DlgAddNewCustomer;
 import view.FrmMain;
 
 public class UIController {
-	static Controller controller;
+	private Controller controller;
 	public UIController() {
 		controller=new Controller();
 	}
@@ -18,26 +18,33 @@ public class UIController {
 		return (ArrayList<Customer>) controller.getAllCustomers();
 	}
 
-	public static void openDlgAddNewCustomer() {
+	public void openDlgAddNewCustomer() {
 		DlgAddNewCustomer dialog = new DlgAddNewCustomer();
 		dialog.setVisible(true);
 	}
 
-	public static void addNewCustomer(String name, String surname, String contact, double totalBill, CustomerType customerType) {
+	public void addNewCustomer(String fullName,String contact, double totalBill, CustomerTypeName customerType) throws Exception {
 			try {
 				Customer customer = new Customer();
-				
-				customer.setName(name);
-				customer.setSurname(surname);
+				customer.setFullName(fullName);
 				customer.setContact(contact);
 				customer.setTotalBill(totalBill);
-				customer.setCustomerType(customerType);
-				
+				CustomerType type=new CustomerType();
+				type.setType(customerType);
+				customer.setCustomerType(type);		
 				controller.addNewCustomer(customer);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
+				throw e;
 			}
 		}
+
+	public java.util.List<CustomerType> getCustomerTypes() {
+		try {
+			return controller.getCustomerTypes();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 
 }

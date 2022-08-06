@@ -7,6 +7,6 @@ import model.Customer;
 public interface CustomerService {
 	public List<Customer> getAllCustomers();
 	
-	public void addNewCustomer(Customer customer) throws SQLException;
+	public void addNewCustomer(Customer customer) throws SQLException, Exception;
 
 }

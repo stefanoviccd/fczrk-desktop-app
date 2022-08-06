@@ -20,8 +20,11 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepository.getAllCustomers();
 	}
 
+	//todo: kod dodavanja korisnika, ukoliko se uhvati izuzetak, potrebno ga je proslediti dalje, sve do forme, na kojoj
+	//cemo ako se desi izuzetak prijakazti JoptionPane sa odgovarajucom porukom.
+	//(ovo bi znacilo nakon rollback bacamo izuzetak)
 	@Override
-	public void addNewCustomer(Customer customer) throws SQLException {
+	public void addNewCustomer(Customer customer) throws Exception {
 		try {
 			DBConnection.getInstance().connect();
 			List<Customer> customers = customerRepository.findByContact(customer.getContact());
@@ -30,8 +33,10 @@ public class CustomerServiceImpl implements CustomerService {
 			DBConnection.getInstance().commit();
 		} catch (Exception e) {
 			DBConnection.getInstance().rollback();
+			e.printStackTrace();
+			throw e;
 		} finally {
-			DBConnection.getInstance().disconnect();
+			//DBConnection.getInstance().disconnect();
 		}
 		
 	}
