@@ -18,7 +18,10 @@ public class TableModelCustomer extends AbstractTableModel {
 	public TableModelCustomer(List<Customer> customers) {
 		this.customers=customers;
 	}
-	
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+		fireTableDataChanged();
+	}
 	@Override
 	public int getRowCount() {
 		if(customers==null)return 0;

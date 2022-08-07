@@ -31,12 +31,12 @@ public class CustomerServiceImpl implements CustomerService {
 			if(!customers.isEmpty()) throw new Exception("Korisnik sa brojem telefona postoji");
 			customerRepository.addNewCustomer(customer);
 			DBConnection.getInstance().commit();
+			DBConnection.getInstance().disconnect();
 		} catch (Exception e) {
 			DBConnection.getInstance().rollback();
+			DBConnection.getInstance().disconnect();
 			e.printStackTrace();
 			throw e;
-		} finally {
-			//DBConnection.getInstance().disconnect();
 		}
 		
 	}

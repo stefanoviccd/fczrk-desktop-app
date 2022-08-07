@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -36,24 +37,16 @@ public class DlgAddNewCustomer extends JDialog {
 	private JTextField txtContact;
 	private JTextField txtTotalBill;
 	private UIController uiController;
+	private FrmMain mainForm;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			DlgAddNewCustomer dialog = new DlgAddNewCustomer();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public DlgAddNewCustomer() {
+	public DlgAddNewCustomer(FrmMain frmMain) {
 		uiController=new UIController();
 		setAlwaysOnTop(true);
 		setModal(true);
@@ -124,17 +117,35 @@ public class DlgAddNewCustomer extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
+							validateForm();
 							String name = txtName.getText().trim();
 							String contact = txtContact.getText().trim();
 							double totalBill = Double.parseDouble(txtTotalBill.getText());
 							CustomerTypeName customerType = (CustomerTypeName) comboBoxCustomerType.getSelectedItem();
 							uiController.addNewCustomer(name,contact, totalBill, customerType);
+							frmMain.refreshTable();
 							JOptionPane.showMessageDialog(getRootPane(), "Uspešno evidentiran majstor.", "", JOptionPane.DEFAULT_OPTION);
 							dispose();
 						} catch (Exception ex) {
-							JOptionPane.showMessageDialog(getRootPane(), ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
-								
+							JOptionPane.showMessageDialog(getRootPane(), ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);	
 						}
+					}
+
+					private void validateForm() throws Exception {
+						String name = txtName.getText().trim();
+						String contact = txtContact.getText().trim();
+						double totalBill = Double.parseDouble(txtTotalBill.getText());
+						if(name==null || name.isEmpty())
+							throw new Exception("Morate uneti vrednost za ime!");
+						if(isContactValid(contact)) {}
+							
+								
+						
+					}
+
+					private boolean isContactValid(String contact) {
+						// TODO Auto-generated method stub
+						return true;
 					}
 				});
 				okButton.setActionCommand("OK");

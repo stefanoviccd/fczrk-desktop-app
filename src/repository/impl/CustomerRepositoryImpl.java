@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import db.DBConnection;
 import model.Customer;
+import model.CustomerTypeName;
 import repository.CustomerRepository;
 
 public class CustomerRepositoryImpl implements CustomerRepository {
@@ -53,8 +54,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 			customer.setContact(rs.getString("contact"));
 			customer.setTotalBill(rs.getDouble("total_amount_spent"));
 			customer.setCustomerType(null);
-			
-			
 			customers.add(customer);
 		}
 		statement.close();

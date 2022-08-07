@@ -35,8 +35,9 @@ public class FrmMain extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-
-
+	public FrmMain self() {
+		return this;
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -51,7 +52,7 @@ public class FrmMain extends JFrame {
 		btnAddNewCustomer = new JButton("Dodaj novog korisnika");
 		btnAddNewCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				uiController.openDlgAddNewCustomer();
+				uiController.openDlgAddNewCustomer(self());
 			}
 		});
 		
@@ -103,5 +104,10 @@ public class FrmMain extends JFrame {
 		System.out.println(customers);
 
 		
+	}
+	public void refreshTable() {
+		ArrayList<Customer> customers=uiController.getAllCustomers();
+		TableModelCustomer model= (TableModelCustomer) tblCustomers.getModel();
+		model.setCustomers(customers);	
 	}
 }

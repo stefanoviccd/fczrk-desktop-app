@@ -18,8 +18,8 @@ public class UIController {
 		return (ArrayList<Customer>) controller.getAllCustomers();
 	}
 
-	public void openDlgAddNewCustomer() {
-		DlgAddNewCustomer dialog = new DlgAddNewCustomer();
+	public void openDlgAddNewCustomer(FrmMain frmMain) {
+		DlgAddNewCustomer dialog = new DlgAddNewCustomer(frmMain);
 		dialog.setVisible(true);
 	}
 
