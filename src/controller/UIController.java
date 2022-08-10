@@ -18,20 +18,18 @@ public class UIController {
 		return (ArrayList<Customer>) controller.getAllCustomers();
 	}
 
-	public void openDlgAddNewCustomer(FrmMain frmMain) {
+	public void openDlgAddNewCustomer(FrmMain frmMain) throws Exception {
 		DlgAddNewCustomer dialog = new DlgAddNewCustomer(frmMain);
 		dialog.setVisible(true);
 	}
 
-	public void addNewCustomer(String fullName,String contact, double totalBill, CustomerTypeName customerType) throws Exception {
+	public void addNewCustomer(String fullName,String contact, double totalBill, CustomerType customerType) throws Exception {
 			try {
 				Customer customer = new Customer();
 				customer.setFullName(fullName);
 				customer.setContact(contact);
 				customer.setTotalBill(totalBill);
-				CustomerType type=new CustomerType();
-				type.setType(customerType);
-				customer.setCustomerType(type);		
+				customer.setCustomerType(customerType);		
 				controller.addNewCustomer(customer);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -39,7 +37,7 @@ public class UIController {
 			}
 		}
 
-	public java.util.List<CustomerType> getCustomerTypes() {
+	public java.util.List<CustomerType> getCustomerTypes() throws Exception {
 		try {
 			return controller.getCustomerTypes();
 		} catch (Exception e) {

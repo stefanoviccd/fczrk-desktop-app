@@ -7,12 +7,16 @@ import java.util.List;
 import model.Customer;
 import model.CustomerType;
 import service.CustomerService;
+import service.CustomerTypeService;
 import service.impl.CustomerServiceImpl;
+import service.impl.CustomerTypeServiceImpl;
 
 public class Controller {
 	CustomerService customerService;
+	CustomerTypeService customerTypeService;
 	public Controller() {
 		customerService=new CustomerServiceImpl();
+		customerTypeService = new CustomerTypeServiceImpl();
 	}
 	public List<Customer> getAllCustomers() {
 		return customerService.getAllCustomers();
@@ -26,9 +30,12 @@ public class Controller {
 		
 		
 	}
-	public List<CustomerType> getCustomerTypes() {
-		// TODO Auto-generated method stub
-		return new ArrayList<>();
+	public List<CustomerType> getCustomerTypes() throws SQLException {
+		try {
+			return customerTypeService.getCustomerTypes();
+		} catch (SQLException e) {
+			throw e;
+		}
 	}
 
 }

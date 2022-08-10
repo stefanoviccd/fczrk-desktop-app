@@ -52,7 +52,12 @@ public class FrmMain extends JFrame {
 		btnAddNewCustomer = new JButton("Dodaj novog korisnika");
 		btnAddNewCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				uiController.openDlgAddNewCustomer(self());
+				try {
+					uiController.openDlgAddNewCustomer(self());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

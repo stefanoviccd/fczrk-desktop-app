@@ -1,6 +1,6 @@
 package model;
 
 public enum CustomerTypeName {
-	Zlatni, Srebrni, Bronzani
+	Zlatni, Srebrni, Bronzani, Regularni
 
 }
