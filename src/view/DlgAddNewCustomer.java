@@ -8,8 +8,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.mysql.cj.protocol.x.MessageConstants;
-
 import controller.UIController;
 
 import javax.swing.JLabel;

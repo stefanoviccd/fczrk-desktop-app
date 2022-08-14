@@ -3,6 +3,8 @@ package service.impl;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import db.DBConnection;
 import model.Customer;
 import repository.CustomerRepository;
@@ -39,6 +41,25 @@ public class CustomerServiceImpl implements CustomerService {
 			//DBConnection.getInstance().disconnect();
 		}
 		
+	}
+
+	@Override
+	public void updateCustomer(Customer customer, String contact) throws Exception {
+		try {
+			DBConnection.getInstance().connect();
+			List<Customer> customers = customerRepository.findByContact(contact);
+			if(!customers.isEmpty()) {
+				throw new Exception("Korisnik ne postoji u bazi.");
+			}
+			customerRepository.updateCustomer(customer, contact);
+			DBConnection.getInstance().commit();
+		} catch (Exception e) {
+			DBConnection.getInstance().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			//DBConnection.getInstance().disconnect();
+		}
 	}
 
 

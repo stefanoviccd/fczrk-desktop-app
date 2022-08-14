@@ -5,12 +5,14 @@ import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import controller.UIController;
 import model.Customer;
+import model.CustomerType;
 import view.tableModel.TableModelCustomer;
 
 import javax.swing.GroupLayout;
@@ -19,6 +21,9 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 
 public class FrmMain extends JFrame {
@@ -31,6 +36,8 @@ public class FrmMain extends JFrame {
 	private JButton btnDetails;
 	private JTable tblCustomers;
 	private JScrollPane scrollPane;
+	private Customer selectedCustomer;
+	private int selectedRow;
 
 	/**
 	 * Launch the application.
@@ -42,6 +49,7 @@ public class FrmMain extends JFrame {
 	 */
 	public FrmMain() {
 		uiController=new UIController();
+		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 897, 448);
 		contentPane = new JPanel();
@@ -58,6 +66,16 @@ public class FrmMain extends JFrame {
 		btnDelete = new JButton("Izbri\u0161i");
 		
 		btnDetails = new JButton("Detalji");
+		
+		btnDetails.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					uiController.openFrmUpdate(selectedCustomer);					
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(getRootPane(), ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		
 		scrollPane = new JScrollPane();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -89,6 +107,18 @@ public class FrmMain extends JFrame {
 		);
 		
 		tblCustomers = new JTable();
+		tblCustomers.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectedRow = tblCustomers.getSelectedRow();
+				TableModelCustomer model = (TableModelCustomer)tblCustomers.getModel();
+				selectedCustomer = new Customer();
+				selectedCustomer.setFullName((String)model.getValueAt(selectedRow,0));
+				selectedCustomer.setContact((String)model.getValueAt(selectedRow, 1));
+				selectedCustomer.setTotalBill((Double)model.getValueAt(selectedRow, 2));
+				selectedCustomer.setCustomerType((CustomerType)model.getValueAt(selectedRow, 3));
+			}
+		});
 		scrollPane.setViewportView(tblCustomers);
 		tblCustomers.setColumnSelectionAllowed(true);
 		contentPane.setLayout(gl_contentPane);

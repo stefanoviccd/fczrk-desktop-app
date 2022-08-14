@@ -30,5 +30,9 @@ public class Controller {
 		// TODO Auto-generated method stub
 		return new ArrayList<>();
 	}
+	
+	public void updateCustomer(Customer customer, String contact) throws Exception {
+		customerService.updateCustomer(customer,contact);
+	}
 
 }

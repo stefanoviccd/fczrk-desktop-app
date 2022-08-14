@@ -12,5 +12,7 @@ public interface CustomerRepository {
 
 	List<Customer> findByContact(String contact) throws Exception;
 
+	void updateCustomer(Customer customer, String contact) throws SQLException;
+
 
 }

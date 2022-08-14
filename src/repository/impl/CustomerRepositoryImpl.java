@@ -2,6 +2,7 @@ package repository.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,6 +61,20 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 		statement.close();
 		rs.close();
 		return customers;
+	}
+
+	@Override
+	public void updateCustomer(Customer customer, String contact) throws SQLException {
+		Statement statement = null;
+		try {
+			statement = DBConnection.getInstance().getConnection().createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String query = "UPDATE customers SET full_name=" + customer.getFullName() + ", contact=" + customer.getContact() + "WHERE contact =" + contact;
+		statement.executeUpdate(query);
+		statement.close();
 	}
 
 

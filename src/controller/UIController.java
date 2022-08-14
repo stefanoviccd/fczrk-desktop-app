@@ -7,6 +7,7 @@ import model.CustomerType;
 import model.CustomerTypeName;
 import view.DlgAddNewCustomer;
 import view.FrmMain;
+import view.FrmUpdate;
 
 public class UIController {
 	private Controller controller;
@@ -45,6 +46,14 @@ public class UIController {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	public void updateCustomer(Customer customer, String contact) throws Exception {
+		controller.updateCustomer(customer,contact);
+	}
+
+	public void openFrmUpdate(Customer selectedCustomer) {
+		new FrmUpdate(selectedCustomer).setVisible(true);
 	}
 
 }

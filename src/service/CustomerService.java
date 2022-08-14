@@ -9,4 +9,6 @@ public interface CustomerService {
 	
 	public void addNewCustomer(Customer customer) throws SQLException, Exception;
 
+	public void updateCustomer(Customer customer, String contact) throws SQLException, Exception;
+
 }
