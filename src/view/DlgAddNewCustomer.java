@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
+import java.util.regex.*;
+
 public class DlgAddNewCustomer extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -46,7 +48,7 @@ public class DlgAddNewCustomer extends JDialog {
 	 * Create the dialog.
 	 * @throws Exception 
 	 */
-	public DlgAddNewCustomer(FrmMain frmMain) throws Exception {
+	public DlgAddNewCustomer(final FrmMain frmMain) throws Exception {
 		uiController=new UIController();
 		setAlwaysOnTop(true);
 		setModal(true);
@@ -92,7 +94,7 @@ public class DlgAddNewCustomer extends JDialog {
 		lblNewLabel_2.setBounds(68, 157, 113, 13);
 		contentPanel.add(lblNewLabel_2);
 		
-		JComboBox<CustomerType> comboBoxCustomerType = new JComboBox<CustomerType>(); 
+		final JComboBox<CustomerType> comboBoxCustomerType = new JComboBox<CustomerType>(); 
 		List<CustomerType> customerTypes = new ArrayList<>();
 		try {
 			customerTypes = uiController.getCustomerTypes();
@@ -122,10 +124,10 @@ public class DlgAddNewCustomer extends JDialog {
 							CustomerType customerType = (CustomerType) comboBoxCustomerType.getSelectedItem();
 							uiController.addNewCustomer(fullName,contact, totalBill, customerType);
 							frmMain.refreshTable();
-							JOptionPane.showMessageDialog(getRootPane(), "Uspešno evidentiran majstor.", "", JOptionPane.DEFAULT_OPTION);
+							JOptionPane.showMessageDialog(getRootPane(), "Uspeï¿½no evidentiran majstor.", "", JOptionPane.DEFAULT_OPTION);
 							dispose();
 						} catch (Exception ex) {
-							JOptionPane.showMessageDialog(getRootPane(), ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);	
+							JOptionPane.showMessageDialog(getRootPane(), ex.getMessage(), "Greï¿½ka", JOptionPane.ERROR_MESSAGE);	
 						}
 					}
 
@@ -145,7 +147,10 @@ public class DlgAddNewCustomer extends JDialog {
 					}
 
 					private boolean isContactValid(String contact) {
-						return true;
+						
+						Pattern ptrn = Pattern.compile("^06[012345689][0-9]{6,7}$");
+						Matcher match = ptrn.matcher(contact);
+						return (match.find() && match.group().equals(contact));
 					}
 				});
 				okButton.setActionCommand("OK");
