@@ -18,8 +18,12 @@ public class Controller {
 		customerService=new CustomerServiceImpl();
 		customerTypeService = new CustomerTypeServiceImpl();
 	}
-	public List<Customer> getAllCustomers() {
-		return customerService.getAllCustomers();
+	public List<Customer> getAllCustomers() throws Exception {
+		try {
+			return customerService.getAllCustomers();
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	public void addNewCustomer(Customer customer) throws Exception {
 		try {

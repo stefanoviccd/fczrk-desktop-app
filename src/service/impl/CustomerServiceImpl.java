@@ -16,8 +16,13 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<Customer> getAllCustomers() {
-		return customerRepository.getAllCustomers();
+	public List<Customer> getAllCustomers() throws Exception {
+		try {
+			return customerRepository.getAllCustomers();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	//todo: kod dodavanja korisnika, ukoliko se uhvati izuzetak, potrebno ga je proslediti dalje, sve do forme, na kojoj

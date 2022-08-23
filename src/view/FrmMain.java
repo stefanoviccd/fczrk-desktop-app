@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -103,16 +104,26 @@ public class FrmMain extends JFrame {
 	}
 
 	private void prepareView() {
-		ArrayList<Customer> customers=uiController.getAllCustomers();
-		TableModelCustomer tableModelCustomers=new TableModelCustomer(customers);
-		tblCustomers.setModel(tableModelCustomers);
-		System.out.println(customers);
+		ArrayList<Customer> customers;
+		try {
+			customers = uiController.getAllCustomers();
+			TableModelCustomer tableModelCustomers=new TableModelCustomer(customers);
+			tblCustomers.setModel(tableModelCustomers);
+			System.out.println(customers);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(getRootPane(), e.getMessage(), "Gre�ka", JOptionPane.ERROR_MESSAGE);
+		}
+		
 
 		
 	}
 	public void refreshTable() {
-		ArrayList<Customer> customers=uiController.getAllCustomers();
-		TableModelCustomer model= (TableModelCustomer) tblCustomers.getModel();
-		model.setCustomers(customers);	
+		try {
+			ArrayList<Customer> customers=uiController.getAllCustomers();
+			TableModelCustomer model= (TableModelCustomer) tblCustomers.getModel();
+			model.setCustomers(customers);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(getRootPane(), e.getMessage(), "Gre�ka", JOptionPane.ERROR_MESSAGE);
+		}	
 	}
 }

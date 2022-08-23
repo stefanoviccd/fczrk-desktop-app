@@ -14,8 +14,13 @@ public class UIController {
 		controller=new Controller();
 	}
 
-	public ArrayList<Customer> getAllCustomers() {
-		return (ArrayList<Customer>) controller.getAllCustomers();
+	public ArrayList<Customer> getAllCustomers() throws Exception {
+		try {
+			return (ArrayList<Customer>) controller.getAllCustomers();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	public void openDlgAddNewCustomer(FrmMain frmMain) throws Exception {

@@ -6,7 +6,7 @@ import java.util.List;
 import model.Customer;
 
 public interface CustomerRepository {
-	List<Customer> getAllCustomers();
+	List<Customer> getAllCustomers() throws Exception;
 
 	void addNewCustomer(Customer customer) throws Exception;
 
