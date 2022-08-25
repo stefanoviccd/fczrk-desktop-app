@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -35,8 +36,9 @@ public class FrmMain extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-
-
+	public FrmMain self() {
+		return this;
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -51,7 +53,12 @@ public class FrmMain extends JFrame {
 		btnAddNewCustomer = new JButton("Dodaj novog korisnika");
 		btnAddNewCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				uiController.openDlgAddNewCustomer();
+				try {
+					uiController.openDlgAddNewCustomer(self());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -97,11 +104,26 @@ public class FrmMain extends JFrame {
 	}
 
 	private void prepareView() {
-		ArrayList<Customer> customers=uiController.getAllCustomers();
-		TableModelCustomer tableModelCustomers=new TableModelCustomer(customers);
-		tblCustomers.setModel(tableModelCustomers);
-		System.out.println(customers);
+		ArrayList<Customer> customers;
+		try {
+			customers = uiController.getAllCustomers();
+			TableModelCustomer tableModelCustomers=new TableModelCustomer(customers);
+			tblCustomers.setModel(tableModelCustomers);
+			System.out.println(customers);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(getRootPane(), e.getMessage(), "Gre�ka", JOptionPane.ERROR_MESSAGE);
+		}
+		
 
 		
+	}
+	public void refreshTable() {
+		try {
+			ArrayList<Customer> customers=uiController.getAllCustomers();
+			TableModelCustomer model= (TableModelCustomer) tblCustomers.getModel();
+			model.setCustomers(customers);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(getRootPane(), e.getMessage(), "Gre�ka", JOptionPane.ERROR_MESSAGE);
+		}	
 	}
 }

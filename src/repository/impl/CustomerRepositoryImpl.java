@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 
 import db.DBConnection;
 import model.Customer;
+import model.CustomerType;
+import model.CustomerTypeName;
 import repository.CustomerRepository;
 
 public class CustomerRepositoryImpl implements CustomerRepository {
@@ -20,9 +22,34 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 	}
 
 	@Override
-	public List<Customer> getAllCustomers() {
-		//return customers;
-		return null;
+	public List<Customer> getAllCustomers() throws Exception {
+		
+		Statement statement = DBConnection.getInstance().getConnection().createStatement();
+		String query = "SELECT * FROM CUSTOMER";
+		ResultSet rs = statement.executeQuery(query);
+		List<Customer> customers = new ArrayList<>();
+		
+		while(rs.next()) {
+			Customer customer = new Customer();
+			
+			customer.setFullName(rs.getString("full_name"));
+			customer.setContact(rs.getString("contact"));
+			customer.setTotalBill(rs.getDouble("total_amount_spent"));
+			long customerTypeId = rs.getLong("customer_type_id");
+			String qry = "SELECT * FROM CUSTOMER_TYPE WHERE ID = " + customerTypeId;
+			CustomerType customerType = new CustomerType();
+			rs=statement.executeQuery(qry);
+			customerType.setDiscount(rs.getDouble("discount"));
+			customerType.setThreshold(rs.getDouble("threshold"));
+			customerType.setTypeId(customerTypeId);
+			customerType.setType(CustomerTypeName.valueOf(rs.getString("customer_type_name")));
+			customer.setCustomerType(customerType);
+			customers.add(customer);
+		}
+		statement.close();
+		rs.close();
+		return customers;
+		
 	}
 	//todo: da bismo mogli da dodamo id za tip korisnika kao spoljnji kljuc, prethodno je potrebno da nadjemo u bazi 
 	//tip korisnika sa prosledjenim nazivom, i da uzmemo njegov id. Zatim taj id ubacujemo kao spoljnji kljuc
@@ -53,8 +80,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 			customer.setContact(rs.getString("contact"));
 			customer.setTotalBill(rs.getDouble("total_amount_spent"));
 			customer.setCustomerType(null);
-			
-			
 			customers.add(customer);
 		}
 		statement.close();

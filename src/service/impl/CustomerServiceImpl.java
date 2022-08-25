@@ -16,8 +16,13 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<Customer> getAllCustomers() {
-		return customerRepository.getAllCustomers();
+	public List<Customer> getAllCustomers() throws Exception {
+		try {
+			return customerRepository.getAllCustomers();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	//todo: kod dodavanja korisnika, ukoliko se uhvati izuzetak, potrebno ga je proslediti dalje, sve do forme, na kojoj
@@ -31,12 +36,12 @@ public class CustomerServiceImpl implements CustomerService {
 			if(!customers.isEmpty()) throw new Exception("Korisnik sa brojem telefona postoji");
 			customerRepository.addNewCustomer(customer);
 			DBConnection.getInstance().commit();
+			DBConnection.getInstance().disconnect();
 		} catch (Exception e) {
 			DBConnection.getInstance().rollback();
+			DBConnection.getInstance().disconnect();
 			e.printStackTrace();
 			throw e;
-		} finally {
-			//DBConnection.getInstance().disconnect();
 		}
 		
 	}
